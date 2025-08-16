@@ -61,7 +61,7 @@ TYPEINFO(/datum/component/holdertargeting/sniper_scope)
 		if(!user.hasOverlayComposition(src.scope_overlay))
 			user.addOverlayComposition(src.scope_overlay)
 	if(src.scope_sound)
-		playsound(user, src.scope_sound, 50, TRUE)
+		playsound(user, src.scope_sound, 50, TRUE, extrarange = -18)
 
 /datum/component/holdertargeting/sniper_scope/proc/stop_sniping(mob/user)
 	user.override_movement_controller = null

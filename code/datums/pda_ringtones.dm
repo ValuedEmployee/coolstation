@@ -297,7 +297,7 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
+	rangeList = list(-18)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone1_short.AU\"*</span>"
 	previewMessage = "Set your sights skyward!"
@@ -315,7 +315,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone1_short_01.AU\"*</span>"
 	previewMessage = "Set your sights skyward!"
@@ -333,7 +332,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone1_short_02.AU\"*</span>"
 	previewMessage = "Set your sights skyward!"
@@ -351,7 +349,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone1_short_03.AU\"*</span>"
 	previewMessage = "Set your sights skyward!"
@@ -369,7 +366,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone2_short.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -387,7 +383,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone2_short_01.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -405,7 +400,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone2_short_02.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -423,7 +417,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone2_short_03.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -441,7 +434,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone3_short.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -459,7 +451,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone4_short.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -477,7 +468,6 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*starkle*")
-	rangeList = list(0)
 	listCycleType = RINGLIST_STATIC
 	succText = "<span class='notice'>*Ringtone set to \"ringtone5_short.AU\"*</span>"
 	previewMessage = "Set your sky sightward!"
@@ -497,7 +487,7 @@ bathing in her ennui and showering her with money.
 	varyList = list(1)
 	pitchList = list(1)
 	alertList = list("*beedleebeep*")
-	rangeList = list(0)
+	rangeList = list(-15)
 	listCycleType = RINGLIST_STATIC
 	has_short = TRUE
 	succText = "<span class='notice'>*Ringtone set to \"ringlord1.SND\"*</span>"

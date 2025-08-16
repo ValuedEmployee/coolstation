@@ -13,7 +13,7 @@
 		src.targeting_ability = chair_flip_ability
 		src.update_cursor()
 
-		playsound(src.loc, "sound/effects/chair_step.ogg", 50, 1)
+		playsound(src.loc, "sound/effects/chair_step.ogg", 60, 1, extrarange = -8)
 
 /mob/proc/end_chair_flip_targeting()
 	src.targeting_ability = null
