@@ -2571,8 +2571,10 @@
 					if(master.moving || no_patrol)
 						return
 
+					#ifndef IM_TESTING_BASIC_MOB_FUNCTIONALITY
 					if(!master.moving)
 						find_patrol_target()
+					#endif
 				/*
 				Hunt and arrest mode. Like an angry secbot, but cuter and sometimes has a gun
 				Script should go as follows:
@@ -3537,7 +3539,7 @@
 							sleep(4.5 SECONDS)
 							var/mob/living/carbon/human/deaf_person = null
 							for (var/mob/living/carbon/human/maybe_deaf in view(7, master))
-								if (!isdead(maybe_deaf) && !maybe_deaf.hearing_check(1))
+								if (!isdead(maybe_deaf) && cant_hear(maybe_deaf))
 									deaf_person = maybe_deaf
 									break
 
@@ -4060,7 +4062,7 @@
 			src.UpdateName()
 
 		else
-			spawn(0)
+			SPAWN_DBG(0)
 				..()
 
 

@@ -224,6 +224,7 @@ ABSTRACT_TYPE(/mob/living/critter/small_animal)
 	health_burn = 120
 	hand_count = 2
 	is_npc = FALSE
+	add_abilities = list(/datum/targetable/ankle_bite)
 
 	setup_hands()
 
@@ -245,8 +246,6 @@ ABSTRACT_TYPE(/mob/living/critter/small_animal)
 
 	New()
 		. = ..()
-		var/datum/abilityHolder/critter/abilityHolder = src.add_ability_holder(/datum/abilityHolder/critter)
-		abilityHolder.addAbility(/datum/targetable/ankle_bite)
 		APPLY_ATOM_PROPERTY(src, PROP_LIFT_ANYTHING, src)
 		src.ai = null
 
@@ -1361,6 +1360,130 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 		return ..()
 
 /* =================================================== */
+/* -------------------- Mothroach -------------------- */
+/* =================================================== */
+
+/mob/living/critter/small_animal/mothroach
+	name = "mothroach"
+	desc = "This is the adorable by-product of multiple attempts at genetically mixing space bees with cockroaches."
+	icon_state = "mothroach"
+	icon_state_dead = "mothroach_dead"
+	butcherable = 3
+	name_the_meat = 1
+	skinresult = /obj/item/material_piece/cloth/mothroachhide
+	max_skins = 1
+	ai_type = /datum/aiHolder/wanderers
+	health_brute = 30
+	health_burn = 30
+	flags = TABLEPASS
+	fits_under_table = 1
+	takes_tox = FALSE
+	death_text = "%src% curls up and falls still!"
+	pet_text = list("pats", "pets", "squeezes", "squishes", "cuddles")
+	speechverb_say = "flutters"
+	speechverb_exclaim = "flutters loudly"
+	speechverb_ask = "chitters inquisitively"
+	speechverb_gasp = "squeaks loudly"
+	speechverb_stammer = "chitters"
+
+	attack_hand(mob/user as mob)
+		..()
+		if ((user.a_intent == INTENT_HARM))
+			if (!isdead(src))
+				if (prob(50))
+					src.audible_message("<span class='emote'><b>[src]</b> screams!</span>")
+					playsound(src.loc, 'sound/voice/moth/scream_moth.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return
+		else if (!isdead(src) && (user.a_intent == INTENT_HELP))
+			if (prob(30))
+				src.audible_message("<span class='emote'><b>[src]</b> screams!</span>")
+				playsound(src.loc, 'sound/voice/moth/scream_moth.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return
+			else
+				if (prob(30))
+					src.visible_message("<span class='emote'><b>[src]</b> flutters its wings happily!</span>")
+					playsound(src.loc, 'sound/voice/moth/moth_flutter.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return
+		else
+			..()
+		return
+
+	attackby(obj/item/I, mob/M)
+		if(istype(I, /obj/item/clothing) && (ishuman(M) || M == src))
+			playsound(M.loc, "sound/items/eatfood.ogg", 100, 1)
+			src.visible_message("[src] eats the [I] happily!", "[src] munches on the [I].")
+			for(var/damage_type in src.healthlist)
+				var/datum/healthHolder/hh = src.healthlist[damage_type]
+				hh.HealDamage(5)
+			qdel(I)
+			return
+		else if(I.force && !isdead(src))
+			..()
+			if (prob(50))
+				src.audible_message("<span class='emote'><b>[src]</b> screams!</span>")
+				playsound(src.loc, 'sound/voice/moth/scream_moth.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return
+		. = ..()
+
+	Move()
+		.=..()
+		if (!isdead(src))
+			if (prob(05))
+				playsound(src, 'sound/voice/moth/moth_flutter.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+
+	death(var/gibbed)
+		if (!gibbed)
+			playsound(src, 'sound/voice/moth/moth_death.ogg', 100, 1, channel=VOLUME_CHANNEL_EMOTE)
+		..()
+
+	setup_hands()
+		..()
+		var/datum/handHolder/HH = hands[1]
+		HH.limb = new /datum/limb/small_critter/med(src)
+		HH.icon = 'icons/ui/critter_ui.dmi'
+		HH.icon_state = "handn"
+		HH.name = "cute little steppers"
+		HH.limb.name = "foot"
+
+	specific_emotes(var/act, var/param = null, var/voluntary = 0)
+		switch (act)
+			if ("scream")
+				if (src.emote_check(voluntary, 50))
+					playsound(src, 'sound/voice/moth/scream_moth.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return "<span class='emote'><b>[src]</b> screams!</span>"
+			if ("squeak")
+				if (src.emote_check(voluntary, 50))
+					playsound(src, 'sound/voice/moth/moth_squeak.ogg', 100, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return "<span class='emote'><b>[src]</b> squeaks!</span>"
+			if ("chitter")
+				if (src.emote_check(voluntary, 50))
+					playsound(src, 'sound/voice/moth/moth_chitter.ogg', 100, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return "<span class='emote'><b>[src]</b> chitters!</span>"
+			if ("flap")
+				if (src.emote_check(voluntary, 50))
+					playsound(src, 'sound/voice/moth/moth_flutter.ogg', 50, 1, channel=VOLUME_CHANNEL_EMOTE)
+				return "<span class='emote'><b>[src]</b> flutters its wings!</span>"
+		return null
+
+	specific_emote_type(var/act)
+		switch (act)
+			if ("scream")
+				return 2
+			if ("squeak")
+				return 1
+			if ("chitter")
+				return 2
+			if ("flap")
+				return 1
+		return ..()
+
+/mob/living/critter/small_animal/mothroach/barroach
+	name = "mothroach bartender"
+	desc = "A mothroach serving drinks. Look at him go."
+	icon_state = "barroach"
+	icon_state_dead = "barroach_dead"
+
+/* =================================================== */
 /* -------------------- Scorpion --------------------- */
 /* =================================================== */
 
@@ -2173,6 +2296,7 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 	speechverb_say = "blorps"
 	speechverb_exclaim = "bloops"
 	speechverb_ask = "burbles"
+	ai_type = /datum/aiHolder/wanderers
 	health_brute = 5
 	health_burn = 5
 	flags = TABLEPASS
@@ -2327,13 +2451,7 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 	health_brute = 8
 	health_burn = 8
 	isFlying = 1
-
-	New()
-		..()
-		abilityHolder = new /datum/abilityHolder/critter(src)
-		//todo : move to add_abilities list because its cleaner that way
-		abilityHolder.addAbility(/datum/targetable/critter/vomit)
-		abilityHolder.updateButtons()
+	add_abilities = list(/datum/targetable/critter/vomit)
 
 	Move()
 		. = ..()
@@ -2391,13 +2509,7 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 	health_brute = 8
 	health_burn = 8
 	isFlying = 1
-
-	New()
-		..()
-		abilityHolder = new /datum/abilityHolder/critter(src)
-		//todo : move to add_abilities list because its cleaner that way
-		abilityHolder.addAbility(/datum/targetable/critter/blood_bite)
-		abilityHolder.updateButtons()
+	add_abilities = list(/datum/targetable/critter/blood_bite)
 
 	Move()
 		. = ..()
@@ -2882,6 +2994,12 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 		HH.name = "right claw"
 		HH.limb.name = "claw"
 
+	was_harmed(mob/M, obj/item/weapon, special, intent)
+		. = ..()
+		if(ishuman(M) && get_dist(src,M)<2)
+			M.changeStatus("crab", 3 SECONDS)
+
+
 
 
 /mob/living/critter/small_animal/trilobite
@@ -2897,6 +3015,7 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 	health_burn = 6
 	flags = TABLEPASS | DOORPASS
 	fits_under_table = 1
+	add_abilities = list(/datum/targetable/critter/bury_hide)
 
 	density = 1
 
@@ -2909,7 +3028,6 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 		..()
 		src.remove_stam_mod_max("small_animal")
 		src.add_stam_mod_max("trilobite", -(STAMINA_MAX-10))
-		abilityHolder.addAbility(/datum/targetable/critter/bury_hide)
 		SPAWN_DBG(1 SECOND)
 			animate_bumble(src)
 
@@ -3046,6 +3164,7 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 	health_burn = 24
 	flags = TABLEPASS | DOORPASS
 	fits_under_table = 1
+	add_abilities = list(/datum/targetable/critter/bury_hide)
 
 	density = 1
 
@@ -3058,7 +3177,6 @@ var/list/mob_bird_species = list("smallowl" = /mob/living/critter/small_animal/b
 		..()
 		src.remove_stam_mod_max("small_animal")
 		src.add_stam_mod_max("pikaia", -(STAMINA_MAX-140))
-		abilityHolder.addAbility(/datum/targetable/critter/bury_hide)
 		SPAWN_DBG(1 SECOND)
 			animate_bumble(src)
 

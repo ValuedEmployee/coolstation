@@ -23,8 +23,8 @@
 	throw_range = 20
 	flags = FPRINT | TABLEPASS | CONDUCT | ONBELT | EXTRADELAY | NOSPLASH
 	stamina_damage = 0
-	stamina_cost = 0
-	stamina_crit_chance = 0
+//	stamina_cost = 0
+//	stamina_crit_chance = 0
 	move_triggered = 1
 	var/detonating = 0
 
@@ -377,7 +377,7 @@
 					if (ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/safety = 0
-						if (H.eyes_protected_from_light() && H.ears_protected_from_sound())
+						if (H.eyes_protected_from_light() && cant_hear(H))
 							safety = 1
 
 						if (safety == 0)

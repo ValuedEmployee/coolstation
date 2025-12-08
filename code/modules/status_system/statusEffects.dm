@@ -1618,6 +1618,8 @@
 				if(how_miasma > 4)
 					. += " You might get sick."
 				#endif
+
+/*
 /datum/statusEffect/sandy
 	id = "sandy"
 	name = "Sandy"
@@ -1651,6 +1653,7 @@
 						S.create_overlay(states[2], "#9a865a", direct, 'icons/obj/decals/blood.dmi') //awawa
 				else
 					S.create_overlay("smear2", "#9a865a", direct, 'icons/obj/decals/blood.dmi')
+*/
 
 /datum/statusEffect/dripping_paint
 	id = "marker_painted"
@@ -1695,6 +1698,32 @@
 				P.create_overlay(states[2], "#ff8820", direct, 'icons/obj/decals/blood.dmi')
 		else
 			P.create_overlay("smear2", "#ff8820", direct, 'icons/obj/decals/blood.dmi')
+
+
+/client/var/crab
+
+/datum/statusEffect/crab
+	id = "crab"
+	name = "Crabbed"
+	desc = "A CRAB IS PINCHING YOUR PENIS!"
+	icon_state = "crab"
+	unique = TRUE
+	maxDuration = 30 MINUTES
+
+	onAdd(optional)
+		. = ..()
+		if (!ishuman(owner)) return
+		boutput(owner,"Oh fuck. OH CHRIST.")
+		var/client/C = owner:client
+		if(istype(C))
+			C.crab = TRUE
+
+	onRemove()
+		. = ..()
+		var/client/C = owner:client
+		if(istype(C))
+			C.crab = FALSE
+		boutput(owner,"Oh thank god that's over with.")
 
 /datum/statusEffect/magnetized
 	id = "magnetized"
